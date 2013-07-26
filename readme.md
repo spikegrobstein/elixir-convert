@@ -4,8 +4,8 @@ A basic conversion library for converting:
 
  * decimal to binary
  * binary to decimal
- * hex to decimal (not yet implemented)
- * decimal to hex (not yet implemented)
+ * hex to decimal
+ * decimal to hex
 
 This is me just trying to learn me an Elixir.
 
