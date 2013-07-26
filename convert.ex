@@ -75,13 +75,18 @@ defmodule Convert do
     import Enum
     import Math
 
+    # lookup table for hex values
     @lookup_table %w{ 0 1 2 3 4 5 6 7 8 9 A B C D E F }
 
+    # given a value as a positive integer
+    # return a list of string values containing the hex characters
     def from_dec( value ) when value > 0 do
-      do_from_dec( value , [] )
-        |> map( at(@lookup_table, &1) )
+      do_from_dec( value , [] )         # convert to list of integers (0-15)
+        |> map( at(@lookup_table, &1) ) # translate integers into 0-F values from @lookup_table
     end
 
+    # given a value as a positive integer
+    # return a string of the hexadecimal representation of said value
     def from_dec_to_string( value ) when value > 0 do
       from_dec( value )
         |> join
