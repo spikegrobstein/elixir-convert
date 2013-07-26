@@ -1,36 +1,3 @@
-defmodule Factorial do
-
-  def of(0), do: 1
-
-  def of(n) when n > 0, do: n * of(n-1)
-
-end
-
-
-defmodule MessageBus do
-
-  # call any function that matches the listener
-  # type is atom (eg: :hello)
-  # message is string
-  # listeners is list of tuples of functions
-  # [ hello: fn(m) -> IO.puts m end, bye: fn(m) -> IO.puts m end, hello: fn(m) -> IO.puts "I will also do this crap" end ]""]
-  def publish(type, message, listeners) do
-    _publish(type, message, listeners)
-  end
-
-  def _publish( _type, _message, [] ), do: :nothing
-
-  def _publish(type, message, [ { handler, fun } |t ]) when handler == type do
-    fun.(message)
-    _publish(type, message, t)
-  end
-
-  def _publish( type, message, [ { _, _} | t ] ) do
-    _publish(type, message, t)
-  end
-
-end
-
 defmodule Math do
     def pow( num, power ) do
       do_pow num, power, 1
