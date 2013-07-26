@@ -72,9 +72,29 @@ defmodule Convert do
 
   defmodule Hex do
     
-    def to( value ) when value > 0 do
-      raise "ERROR"
+    import Enum
+    import Math
+
+    @lookup_table %w{ 0 1 2 3 4 5 6 7 8 9 A B C D E F }
+
+    def from_dec( value ) when value > 0 do
+      do_from_dec( value , [] )
+        |> map( at(@lookup_table, &1) )
     end
+
+    def from_dec_to_string( value ) when value > 0 do
+      from_dec( value )
+        |> join
+    end
+
+    defp do_from_dec( 0, list ) do
+      list
+    end
+
+    defp do_from_dec( value, list ) when value > 0 do
+      do_from_dec div(value, 16), [ rem(value, 16) | list ]
+    end
+
   end
 
 end
