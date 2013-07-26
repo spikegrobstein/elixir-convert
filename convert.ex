@@ -100,6 +100,47 @@ defmodule Convert do
       do_from_dec div(value, 16), [ rem(value, 16) | list ]
     end
 
+    # Given a list of hex value strings
+    # return a the integer representation of it
+    def from_hex( value ) when is_list( value ) do
+      do_from_hex_list reverse( value ), 0, 0
+    end
+
+    # Given a string representation of a hex value,
+    # return the integer representation of it
+    def from_hex( value ) when is_bitstring( value ) do
+      hex_list = String.split( value, %r{} )
+                  |> filter( &1 != "" )
+
+      from_hex( hex_list )
+    end
+
+    # convert a single hex value (a nibble) as a string into an integer
+    # case-insensitive
+    # eg: a -> 10
+    def hex_val_to_int( hexval ) do
+      String.capitalize( hexval )
+        |> do_hex_val_to_int( @lookup_table, 0 )
+    end
+
+    defp do_hex_val_to_int( hexval, [ v | tail ], acc) when hexval == v do
+      acc
+    end
+
+    defp do_hex_val_to_int( hexval, [ v | tail ], acc) do
+      do_hex_val_to_int( hexval, tail, acc + 1 )
+    end
+
+
+    defp do_from_hex_list( [], _power, acc ) do
+      acc
+    end
+
+    defp do_from_hex_list( [ v | tail ], power, acc ) do
+      val = hex_val_to_int( v )
+      do_from_hex_list tail, ( power + 1 ), ( acc + ( val * pow( 16, power)) )
+    end
+
   end
 
 end
