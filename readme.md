@@ -13,6 +13,8 @@ This is me just trying to learn me an Elixir.
 
 Elixir is a dope functional language that compiles to BEAM, Erlang's weapons-grade virtual machine.
 
+See elixir-lang.org for more info.
+
 ## License
 
 MIT Licensed. See LICENSE.md
